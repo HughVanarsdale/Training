@@ -1,5 +1,6 @@
 ﻿@page "/Euler/EulerMenu"
 @using System.Diagnostics;
+@using Training.Client.General;
 
 <h3>Euler Problems
 
@@ -14,7 +15,7 @@
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <button class="Btn" onclick="@EulerOne">Find the sum of all multiples of 3 or 5 below 1000</button> <strong>@Euler[0]</strong> @elapsedTime[0]
+        <button class="Btn" onclick="@EulerOne">Find the sum of all multiples of 3 or 5 below 1000</button>: <strong>@Euler[0]</strong> @elapsedTime[0]
       </div>
     </div>
   </div>
@@ -31,7 +32,7 @@
                 <br /><center><code>1, 2, 3, 5, 8, 13, 21, 34, 55, 89</code></center><br/>
             <button class="Btn" onclick="@EulerTwo">
                 By considering the terms in the Fibonacci sequence whose values do not exceed four million, 
-                find the sum of the even-valued terms.</button> <strong>@Euler[1]</strong> @elapsedTime[1]
+                find the sum of the even-valued terms.</button>: <strong>@Euler[1]</strong> @elapsedTime[1]
       </div>
     </div>
   </div>
@@ -46,16 +47,21 @@
         The prime factors of 13195 are <code>5, 7, 13, 29</code>.
         <br/><br/>
         <button class="Btn" onclick="@EulerThree">
-           What is the largest prime factor of the number <code>600851475143</code></button>  <strong>@Euler[2]</strong> @elapsedTime[2]
+           What is the largest prime factor of the number 600851475143</button>:  <strong>@EulerLong[2]</strong> @elapsedTime[2]
       </div>
     </div>
   </div>
 </div>
 <style>
+    .accordion-body{
+        background-color:cyan;
+    }
     .accordion-item{
-        border-width: 5px;
+        background-color: cyan;
+        border-width: 1px;
     }
     .accordion{
+        background-color: cyan;
         border-width: 5px;
     }
     .Btn{
@@ -69,11 +75,28 @@
 </style>
 @code {
     private int[] Euler = new int[10];
+    private long[] EulerLong = new long[10];
     private string[] elapsedTime = new string[10];
 
     private void EulerThree()
     {
-        Euler[2] = 992929;
+        Stopwatch stopWatch = new Stopwatch();
+        stopWatch.Start();
+
+        long[] vals = General.hjvaMath.primeFactors(600851475143);
+        long largest = 0;
+        foreach (long l in vals)
+        {
+            if (l > largest)
+            {
+                largest = l;
+            }
+        }
+        EulerLong[2] = largest;
+
+        stopWatch.Stop();
+        TimeSpan ts = stopWatch.Elapsed;
+        elapsedTime[2] = String.Format("{0:00}:{1:0000} sec", ts.Seconds, ts.Milliseconds);
     }
 
     private void EulerTwo()
