@@ -2,6 +2,38 @@
 {
     public static class hjvaMath
     {
+        public static bool[] SieveOfEratosthenes(int MaxValue)
+        {
+            bool[] primes = new bool[MaxValue + 1];
+
+            // set all primes to true
+            for (int i = 2; i < MaxValue; i++)
+            {
+                primes[i] = true;
+            }
+
+            // for each value up to sqrt of maxvalue
+            for (int i = 0; i < Math.Sqrt(MaxValue); i++)
+            {
+                // if array value is true
+                if (primes[i])
+                {
+                    // find start position for second loop
+                    // all non prime values below i^2 will already be set to false.
+                    long start = (long)Math.Pow(i, 2);
+
+                    //From start incrementing by i, set primes to false
+                    // i.e i=2, start = 4, set 4,6,8,10... to false
+                    for (long j = start; j < MaxValue; j += i)
+                    {
+                        primes[j] = false;
+
+                    }
+                }
+            }
+            return primes;
+        }
+
         public static bool isPalindrome(string s)
         {
             bool ret = true;        // Return value
@@ -24,46 +56,40 @@
             long[] factors = primeFactors(n);
 
             // if only one factor, they return true, else false.
-            return (factors.Length == 1);
+            if (n == 1)
+                return false;
+            else 
+                return (factors.Length == 1);
         }
 
         public static long[] primeFactors(long n)
         {
             List<long> result = new();
 
-            if (n == 1)
+            // Print the number of 2s that divide n 
+            while (n % 2 == 0)
             {
-                result.Add(1);
+                result.Add(2);
+                n /= 2;
             }
-            else
+
+            // n must be odd at this point. So we can 
+            // skip one element (Note i = i +2) 
+            for (int i = 3; i <= Math.Sqrt(n); i += 2)
             {
-                // Print the number of 2s that divide n 
-                while (n % 2 == 0)
+                // While i divides n, print i and divide n 
+                while (n % i == 0)
                 {
-                    result.Add(2);
-                    //Console.Write(2 + " ");
-                    n /= 2;
+                    result.Add(i);
+                    n /= i;
                 }
+            }
 
-                // n must be odd at this point. So we can 
-                // skip one element (Note i = i +2) 
-                for (int i = 3; i <= Math.Sqrt(n); i += 2)
-                {
-                    // While i divides n, print i and divide n 
-                    while (n % i == 0)
-                    {
-                        result.Add(i);
-                        //Console.Write(i + " ");
-                        n /= i;
-                    }
-                }
-
-                // This condition is to handle the case when 
-                // n is a prime number greater than 2 
-                if (n > 2)
-                {
-                    result.Add(n);
-                }
+            // This condition is to handle the case when 
+            // n is a prime number greater than 2 
+            if (n > 2)
+            {
+                result.Add(n);
             }
             return result.ToArray();
 
