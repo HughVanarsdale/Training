@@ -141,6 +141,27 @@
                 </div>
             </div>
         </div>
+        <!-- Question 7 -------------------------------------------------------------------------->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSeven">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    <strong>7) 10,001<sup>st</sup> Prime</strong>
+                </button>
+            </h2>
+            <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    By listing the first six prime numbers: 2, 3, 5, 7, 11, 13, we can see that the 6<sup>th</sup> prime is 13.
+                    <br/><br/>
+                    <button class="pushable" onclick="@EulerSeven">
+                        <span class="front">
+                            what is he 10,001<sup>th</sup> prime number.
+                        </span>
+                    </button>
+                    <br />
+                    <div class="answer">@EulerLong[6] @elapsedTime[6]</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -197,9 +218,30 @@
     private long[] EulerLong = new long[10];
     private string[] elapsedTime = new string[10];
 
+    private void EulerSeven()
+    {
+
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+        int cntPrimes = 0;
+        int cnt = 1;
+        do
+        {
+            if (hjvaMath.isPrime(cnt++))
+            {
+                cntPrimes++;
+            }
+        } while (cntPrimes <= 10001) ;
+
+        EulerLong[6] = cnt-1;
+
+        sw.Stop();
+        TimeSpan ts = sw.Elapsed;
+        elapsedTime[6] = String.Format($"{ts.Seconds:00}:{ts.Milliseconds:0000} sec");
+    }
     private void EulerSix()
     {
-        //Answer:  25164150
+        
         Stopwatch sw = new Stopwatch();
         sw.Start();
 
