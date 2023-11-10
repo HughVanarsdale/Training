@@ -115,6 +115,32 @@
                 </div>
             </div>
         </div>
+        <!-- Question 6 -------------------------------------------------------------------------->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSix">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    <strong>6) Sum Square Difference</strong>
+                </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    The sum of the squares of the first 10 natural numbers is 1<sup>2</sup> + 2<sup>2</sup> ...  + 10<sup>2</sup> = 385
+                    <br /><br />
+                    The square of the sum of the first 10 natural numbers is (1 + 2 + ... + 10)<sup>2</sup> = 55<sup>2</sup> = 23025
+                    <br/><br/>
+                    Hence the difference between the sum of the squares of the first ten natural numbers and 
+                    the square of that sum is: 3025 - 385 = 2640.
+                    <br/><br/>
+                    <button class="pushable" onclick="@EulerSix">
+                        <span class="front">
+                            Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+                        </span>
+                    </button>
+                    <br />
+                    <div class="answer">@EulerLong[5] @elapsedTime[5]</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -170,6 +196,29 @@
     private int[] Euler = new int[10];
     private long[] EulerLong = new long[10];
     private string[] elapsedTime = new string[10];
+
+    private void EulerSix()
+    {
+        //Answer:  25164150
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        long SumOfSquares = 0;
+        long SquareOfSums = 0;
+
+        for (int i = 1; i <= 100; i++)
+        {
+            SumOfSquares += (long)Math.Pow(i, 2);
+            SquareOfSums += i;
+        }
+        SquareOfSums = (long)Math.Pow(SquareOfSums, 2);
+
+        EulerLong[5] = SquareOfSums - SumOfSquares;
+
+        sw.Stop();
+        TimeSpan ts = sw.Elapsed;
+        elapsedTime[5] = String.Format($"{ts.Seconds:00}:{ts.Milliseconds:0000} sec");
+    }
 
     private void EulerFive()
     {
