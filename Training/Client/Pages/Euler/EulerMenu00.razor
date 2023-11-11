@@ -2,18 +2,18 @@
 @using System.Diagnostics;
 @using Training.Client.General;
 
-<h3>Euler Page One</h3>
+<EulerHeader Title="Euler Page One"></EulerHeader>
 
 <div class="accordion" id="accordionExample">
 
     <!-- Question 1 -------------------------------------------------------------------------->
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                 <strong>1) Multiples of 3 and 5</strong>
             </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <button class="pushable" onclick="@EulerOne">
                     <span class="front">
@@ -163,7 +163,7 @@
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingEight">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                    <strong>8) <s>Largest Product in a Series</s></strong>
+                    <strong>8) Largest Product in a Series</strong>
                 </button>
             </h2>
             <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
@@ -229,6 +229,8 @@
         </div>
     </div>
 </div>
+
+<EulerNav/>
 
 <style>
     .answer {
@@ -361,17 +363,13 @@
                             "84580156166097919133875499200524063689912560717606" +
                             "05886116467109405077541002256983155200055935729725" +
                             "71636269561882670428252483600823257530420752963450";
-        int maxVal = 0;
+        long maxVal = 0;
         for (int i = 0; i < hugeNum.Length - OFFSET; i++)
         {
-            int curTotal = 1;
+            long curTotal = 1;
             for (int j = i; j < i + OFFSET; j++)
             {
-                //curTotal *= int.Parse(hugeNum[j].ToString());
                 curTotal *= hugeNum[j] - '0';
-
-                int debug = hugeNum[j] - '0';
-
             }
             if (curTotal > maxVal)
             {
