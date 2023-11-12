@@ -62,3 +62,50 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+/*-------------------------------------------------------------------------------------*/
+.answer {
+    color: blue;
+    padding: 5px;
+    font-size: larger;
+    border: double;
+    border-color: grey;
+}
+
+.collapsed {
+    color: black;
+}
+
+.accordion-button {
+    background-color: hsl(216deg 100% 91%);
+    border-color: #A9C5EB;
+    color: black;
+}
+
+.accordion-body {
+    background-color: hsl(216deg 100% 91%);
+    border-color: #A9C5EB;
+}
+
+.pushable {
+    background: hsl(53deg 25% 50%);
+    border-radius: 12px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+}
+
+.front {
+    display: block;
+    padding: 5px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    background: hsl(52deg 50% 50%);
+    color: white;
+    transform: translateY(-6px);
+}
+
+.pushable:active .front {
+    transform: translateY(-2px);
+}
