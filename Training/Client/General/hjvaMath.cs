@@ -61,6 +61,24 @@
             else 
                 return (factors.Length == 1);
         }
+        public static long[] AllFactors(long n)
+        {
+            List<long> factors = new();
+            long sq = (long)Math.Floor(Math.Sqrt(n));
+
+            factors.Add(1);
+            for (int i = 2; i < sq; i++)
+            {
+                if (n % i == 0)
+                {
+                    factors.Add(i);
+                    factors.Add(n / i);
+                }
+            }
+            factors.Add(n);
+
+            return factors.ToArray();
+        }
 
         public static long[] primeFactors(long n)
         {
