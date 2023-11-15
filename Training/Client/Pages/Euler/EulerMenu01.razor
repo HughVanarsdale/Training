@@ -135,32 +135,15 @@
     private long[] EulerLong = new long[10];
     private string[] elapsedTime = new string[10];
 
-    string uri;
-
-
     private async Task Euler13()
     {
         Stopwatch sw = new Stopwatch();
         sw.Start();
 
-        //var rr = await Http.GetStringAsync(@"/Data/Euler13.txt");
-        //var rr = await Http.GetStringAsync(@"Data/Euler13.txt");
-        //var rr = await Http.GetStringAsync(@"Data\Euler13.txt");
-        //var rr = await Http.GetStringAsync(@"https://localhost:7265/Data/Euler13.txt");
 
-        var rr = await Http.GetStringAsync("TextData");
-
-//        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
-
-
-        //uri = "https://localhost:7265/Data/Euler13.txt";
-        //string pah = System.IO.Path.GetFullPath(@"Data/Euler13.txt");
-
-        //var fileContents = System.IO.File.ReadAllText((@"Data/Euler13.txt"));
-        //var fileContents = System.IO.File.ReadAllText(pah);
-        //var fileContents = System.IO.File.ReadAllText(uri);
-
-        //string ss = await Http.GetStringAsync(uri);
+        string param = "Euler13.txt";
+        ///string[]? jj = await Http.GetFromJsonAsync<string[]>($"api/ReadText/GetFile/{param}");
+        string[]? jj = await Http.GetFromJsonAsync<string[]>($"api/ReadText/{param}");
 
 
         sw.Stop();
