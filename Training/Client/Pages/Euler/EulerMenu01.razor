@@ -116,7 +116,7 @@
                     </span>
                 </button>
                 <br />
-                <div class="answer">@EulerLong[2] @elapsedTime[2]</div>
+                <div class="answer">@EulerString[2] @elapsedTime[2]</div>
             </div>
         </div>
     </div>
@@ -134,6 +134,7 @@
     private int[] Euler = new int[10];
     private long[] EulerLong = new long[10];
     private string[] elapsedTime = new string[10];
+    private string[] EulerString = new string[10];
 
     private async Task Euler13()
     {
@@ -142,9 +143,20 @@
 
 
         string param = "Euler13.txt";
-        ///string[]? jj = await Http.GetFromJsonAsync<string[]>($"api/ReadText/GetFile/{param}");
-        string[]? jj = await Http.GetFromJsonAsync<string[]>($"api/ReadText/{param}");
+        string[]? data = await Http.GetFromJsonAsync<string[]>($"api/ReadText/{param}");
 
+        string sTotal = "0";
+
+        //foreach (string d in data)
+        //{
+        //    sTotal = hjvaMath.AddTwoStrings(sTotal,d);
+        //}
+        sTotal = hjvaMath.AddTwoStrings("12345", "27");
+        sTotal = hjvaMath.AddTwoStrings("96", "12345");
+        sTotal = hjvaMath.AddTwoStrings("876", "987");
+
+
+//EulerString[2] = sTotal.Substring(0, 10);
 
         sw.Stop();
         TimeSpan ts = sw.Elapsed;

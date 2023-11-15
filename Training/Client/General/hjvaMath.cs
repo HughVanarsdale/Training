@@ -1,7 +1,167 @@
-﻿namespace Training.Client.General
+﻿using Microsoft.Extensions.Options;
+
+namespace Training.Client.General
 {
     public static class hjvaMath
     {
+        public static string AddTwoStrings(string one, string two)
+        {
+
+            // trim out any extra spaces
+            one.Trim(); 
+            two.Trim();
+
+            bool good = true;
+            string sResult = String.Empty;
+
+
+            // make sure all characters are between 0 - 9
+            foreach (char c in one)
+            {
+                if (c < '0' ||  c > '9')
+                {
+                    good = false;
+                    break;
+                }
+            }
+            if (good)
+            {
+                foreach (char c in two)
+                {
+                    if (c < '0' || c > '9')
+                    {
+                        good = false;
+                        break;
+                    }
+                }
+
+            }
+            if (good)
+            {
+                // make two strings equal lengths by adding '0' to beginning of string
+                if (one.Length != two.Length)
+                {
+                    while (one.Length < two.Length)
+                    {
+                        one = '0' + one;
+                    }
+                    while (one.Length > two.Length)
+                    {
+                        two = '0' + two;
+                    }
+                }
+
+                // Perform math
+                int carry = 0;
+                for (int i = one.Length - 1; i > 0; i--)
+                {
+                    int first = ConvertCharToInt(one[i]);   
+                    int second = ConvertCharToInt(two[i]);
+                    int iResult = carry + first + second;
+                    if (iResult >= 10)
+                    {
+                        carry = 1;
+                        iResult -= 10;
+                    }
+                    else
+                    {
+                        carry = 0;
+                    }
+                    char wth = ConvertIntToChar(iResult);
+                    sResult = wth + sResult;
+                }
+                if (carry != 0)
+                {
+                    sResult = "1" + sResult;
+                }
+            }
+            return sResult;
+        }
+        private static char ConvertIntToChar(int i)
+        {
+            char ret;
+            switch (i)
+            {
+                case 0:
+                    ret = '0';
+                    break;
+                case 1:
+                    ret = '1';
+                    break;
+                case 2:
+                    ret = '2';
+                    break;
+                case 3:
+                    ret = '3';
+                    break;
+                case 4:
+                    ret = '4';
+                    break;
+                case 5:
+                    ret = '5';
+                    break;
+                case 6:
+                    ret = '6';
+                    break;
+                case 7:
+                    ret = '7';
+                    break;
+                case 8:
+                    ret = '8';
+                    break;
+                case 9:
+                    ret = '9';
+                    break;
+                default:
+                    ret = '0';
+                    break;
+
+            }
+
+            return ret;
+        }
+        private static int ConvertCharToInt(char c)
+        {
+            int ret = 0;
+
+            switch (c)
+            {
+                case '0':
+                    ret = 0;
+                    break;
+                case '1':
+                    ret = 1;
+                    break;
+                case '2':
+                    ret = 2;
+                    break;
+                case '3':
+                    ret = 3;
+                    break;
+                case '4':
+                    ret = 4;
+                    break;
+                case '5':
+                    ret = 5;
+                    break;
+                case '6':
+                    ret = 6;
+                    break;
+                case '7':
+                    ret = 7;
+                    break;
+                case '8':
+                    ret = 8;
+                    break;
+                case '9':
+                    ret = 9;
+                    break;
+                default:
+                    ret = 0;
+                    break;
+            }
+            return ret;
+        }
         public static bool[] SieveOfEratosthenes(int MaxValue)
         {
             bool[] primes = new bool[MaxValue + 1];
