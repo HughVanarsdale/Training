@@ -120,6 +120,37 @@
             </div>
         </div>
     </div>
+    <!-- Question 14 -------------------------------------------------------------------------->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading14">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="false" aria-controls="collapse14">
+                <strong>14) Longest Collatz Sequencee</strong>
+            </button>
+        </h2>
+        <div id="collapse14" class="accordion-collapse collapse" aria-labelledby="heading14" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                The followint iterative sequence is defined for the set of psitive integers:
+                <pre>
+                    n --> n/2 (n is even)
+                    n --> 3n + 1 (n is odd)
+                </pre>
+                Using the rule above and starting with 13, we generae the following sequence:
+                <pre>
+                    13 --> 40 --> 20 --> 10 --> 5 --> 5 --> 16 --> 8 --> 4 --> 2 --> 1
+                </pre>
+                It can be seen that this sequence (starting at 13 and finishing at 1) contains 10 terms.
+                Althougjh it has not been proven yet (Collatz problem), it is thought that all starting numbers finish at 1.
+                <br /><br />
+                <button class="pushable" onclick="@Euler14">
+                    <span class="front">
+                        Which starting number, under one million, produces the longest chain?
+                    </span>
+                </button>
+                <br />
+                <div class="answer">@Euler[3] @elapsedTime[3]</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <EulerNav />
@@ -135,6 +166,69 @@
     private long[] EulerLong = new long[10];
     private string[] elapsedTime = new string[10];
     private string[] EulerString = new string[10];
+
+    private void Euler14()
+    {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        List<Euler14Struct> Es = new List<Euler14Struct>;
+        int termsCnt = 0;
+        int maxTerms = 0;
+        int maxWorkingVal = 0;
+        long workingVal;
+        bool done;
+        for (int i = 2; i < 1000000; i++)
+        {
+            workingVal = i;
+            termsCnt = 0;
+            done = false;
+            do
+            {
+                int look = Es.FindIndex(j => j.Start == workingVal);
+                if (look != 0)
+                {
+                    termsCnt += Es[look].Terms;
+                    if (termsCnt > maxTerms)
+                    {
+                        maxTerms = termsCnt;
+                        maxWorkingVal = (int)workingVal;
+                    }
+                    done = true;
+                    Euler14Struct addit = new Euler14Struct();
+                    addit.Start = i;
+                    addit.Terms = termsCnt;
+                    Es.Add(addit);
+                }
+                else
+                {
+                    if (workingVal % 2 == 0)
+                    {
+                        workingVal /= 2;
+                    }
+                    else
+                    {
+                        workingVal = (3 * workingVal) + 1;
+                    }
+                }
+            } while (workingVal > 1 && !done) ;
+            if (termsCnt > maxTerms)
+            {
+                maxTerms = termsCnt;
+                maxWorkingVal = (int)workingVal;
+            }
+        }
+        Euler[3] = maxWorkingVal;
+        sw.Stop();
+        TimeSpan ts = sw.Elapsed;
+        elapsedTime[3] = String.Format($"{ts.Seconds:00}:{ts.Milliseconds:0000} sec");
+    }
+    
+    public struct Euler14Struct
+    {
+        public int Start;
+        public int Terms;
+    }
 
     private async Task Euler13()
     {
