@@ -53,7 +53,7 @@ namespace Training.Client.General
 
                 // Perform math
                 int carry = 0;
-                for (int i = one.Length - 1; i > 0; i--)
+                for (int i = one.Length - 1; i >= 0; i--)
                 {
                     int first = ConvertCharToInt(one[i]);   
                     int second = ConvertCharToInt(two[i]);

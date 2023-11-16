@@ -1,24 +1,49 @@
 ﻿<div class="footer">
-    <button class="NavButton"><NavLink class="nav-link" href="/Euler/EulerMenu00">1</NavLink></button>
-    <button class="NavButton"><NavLink class="nav-link" href="/Euler/EulerMenu01">2</NavLink></button>
-    <button class="NavButton"><NavLink class="nav-link" href="/Euler/EulerMenu02">3</NavLink></button>
+    <button class="pushable">
+        <span class="front">
+            <NavLink class="nav-link" href="/Euler/EulerMenu00">1</NavLink>
+        </span>
+    </button>
+    <button class="pushable">
+        <span class="front">
+            <NavLink class="nav-link" href="/Euler/EulerMenu01">2</NavLink>
+        </span>
+    </button>
+    <button class="pushable">
+        <span class="front">
+            <NavLink class="nav-link" href="/Euler/EulerMenu02">3</NavLink>
+        </span>
+    </button>
 </div>
 <hr/>
 <small><a href="https://projecteuler.net">https://projecteuler.net</a></small>
 
 <style>
-    .NavButton{
-        background-color: #04AA6D; /* Green */
+    .pushable {
+        background: hsl(53deg 25% 50%);
+        border-radius: 12px;
         border: none;
+        padding: 0;
+        cursor: pointer;
+        outline-offset: 4px;
+    }
+
+    .front {
+        display: block;
+        padding: 5px;
+        border-radius: 12px;
+        font-size: 1.25rem;
+        background: hsl(52deg 50% 50%);
         color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
+        transform: translateY(-6px);
+    }
+
+    .pushable:active .front {
+        transform: translateY(-2px);
     }
 
     .footer{
+        padding: 6;
         background-color: blue;
         color: yellow;
         font-weight: bold;

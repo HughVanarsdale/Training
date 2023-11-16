@@ -147,16 +147,13 @@
 
         string sTotal = "0";
 
-        //foreach (string d in data)
-        //{
-        //    sTotal = hjvaMath.AddTwoStrings(sTotal,d);
-        //}
-        sTotal = hjvaMath.AddTwoStrings("12345", "27");
-        sTotal = hjvaMath.AddTwoStrings("96", "12345");
-        sTotal = hjvaMath.AddTwoStrings("876", "987");
+        foreach (string d in data)
+        {
+            sTotal = hjvaMath.AddTwoStrings(sTotal,d);
+        }
 
 
-//EulerString[2] = sTotal.Substring(0, 10);
+        EulerString[2] = sTotal.Substring(0, 10);
 
         sw.Stop();
         TimeSpan ts = sw.Elapsed;
