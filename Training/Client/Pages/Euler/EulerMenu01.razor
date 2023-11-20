@@ -200,6 +200,28 @@
             </div>
         </div>
     </div>
+    <!-- Question 17 -------------------------------------------------------------------------->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading17">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17" aria-expanded="false" aria-controls="collapse17">
+                <strong>17) Number Letter Counts</strong>
+            </button>
+        </h2>
+        <div id="collapse17" class="accordion-collapse collapse" aria-labelledby="heading17" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                If the numbers 1 to 5 are written out in words: one, two, three, four, five, 
+                then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total.
+                <br /><br />
+                <button class="pushable" onclick="@Euler17">
+                    <span class="front">
+                        For all numbers between 1 and 1000, how many letters would be used.
+                    </span>
+                </button>
+                <br />
+                <div class="answer">@Euler[6] @elapsedTime[6]</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <EulerNav />
@@ -216,6 +238,88 @@
     private string[] elapsedTime = new string[10];
     private string[] EulerString = new string[10];
     private BigInteger bi=0; 
+    
+    private void Euler17()
+    {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        Dictionary<int, string> numWords = new();
+        numWords.Add(1, "one");
+        numWords.Add(2, "two");
+        numWords.Add(3, "three");
+        numWords.Add(4, "four");
+        numWords.Add(5, "five");
+        numWords.Add(6, "six");
+        numWords.Add(7, "seven");
+        numWords.Add(8, "eight");
+        numWords.Add(9, "nine");
+        numWords.Add(10, "ten");
+        numWords.Add(11, "eleven");
+        numWords.Add(12, "twelve");
+        numWords.Add(13, "thirteen");
+        numWords.Add(14, "fourteen");
+        numWords.Add(15, "fifteen");
+        numWords.Add(16, "sixteen");
+        numWords.Add(17, "seventeen");
+        numWords.Add(18, "eighteen");
+        numWords.Add(19, "nineteen");
+        numWords.Add(20, "twenty");
+        numWords.Add(30, "thirty");
+        numWords.Add(40, "fourty");
+        numWords.Add(50, "fifty");
+        numWords.Add(60, "sixty");
+        numWords.Add(70, "seventy");
+        numWords.Add(80, "eighty");
+        numWords.Add(90, "ninty");
+        numWords.Add(100, "hundred");
+        numWords.Add(1000, "thousand");
+
+        int totChars = 0;
+        int divisor;
+        string line;
+        for (int i = 1; i <= 1000; i++)
+        {
+            line = "";
+            int working = i;
+            while (working > 0)
+            {
+                if (working >= 1000)
+                {
+                    divisor = working / 1000;
+                    line += numWords.First(x => x.Key == divisor).Value + "thousand";
+                    working -= 1000 * divisor;
+                }
+                if (working >= 100)
+                {
+                    divisor = working / 100;
+                    line += numWords.First(x => x.Key == divisor).Value + "hundred";
+                    working -= 100 * divisor;
+                    if (working > 0)
+                    {
+                        line += "and";
+                    }
+                }
+                if (working >= 20)
+                {
+                    divisor = working / 10;
+                    line += numWords.First(x => x.Key == (divisor * 10)).Value;
+                    working -= 10 * divisor;
+                }
+                if (working > 0 && working < 20)
+                {
+                    line += numWords.First(x => x.Key == working).Value;
+                    working = 0;
+                }
+            }
+            totChars += line.Length;
+        }
+        Euler[6] = totChars;
+
+        sw.Stop();
+        TimeSpan ts = sw.Elapsed;
+        elapsedTime[6] = String.Format($"{ts.Seconds:00}:{ts.Milliseconds:0000} sec");
+    }
 
     private void Euler16()
     {
