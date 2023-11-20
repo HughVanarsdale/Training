@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Shared\Training.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Images\Euler15.png" />
+  </ItemGroup>
+
 </Project>

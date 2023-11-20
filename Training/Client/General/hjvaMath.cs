@@ -1,24 +1,73 @@
 ﻿using Microsoft.Extensions.Options;
+using System.Numerics;
 
 namespace Training.Client.General
 {
     public static class hjvaMath
     {
+
+        public static BigInteger Factorial(BigInteger n)
+        {
+            if (n == 1)
+                return 1;
+            else
+                return (n * Factorial(n - 1));
+        }
+        public static string MultiplyTwoStrings(string one, string two)
+        {
+            int iTopChar, iBotChar;
+            int iCarry = 0;
+            int iMult;
+            string sRet = "0";
+            List<string> lstLines = new();
+            string sLine = String.Empty;
+
+            // Bottem line. For each bottom line char, run through all the char's in the top line
+            for (int t = two.Length - 1; t >= 0; t--)
+            {
+                iBotChar = two[t] - '0';
+                sLine = String.Empty;
+                iCarry = 0;
+                // add leading zeros
+                for (int u = 0; u < two.Length - 1 - t; u++)
+                {
+                    sLine += "0";
+                }
+                for (int on = one.Length - 1; on >= 0; on--)
+                {
+                    iTopChar = one[on] - '0';
+                    iMult = iBotChar * iTopChar + iCarry;
+                    sLine = (iMult % 10).ToString() + sLine;
+                    iCarry = iMult / 10;
+                }
+                if (iCarry > 0)
+                {
+                    sLine = iCarry.ToString() + sLine;
+                }
+                lstLines.Add(sLine);
+            }
+            foreach (string l in lstLines)
+            {
+                sRet = AddTwoStrings(sRet, l);
+            }
+            return sRet;
+        }
+
         public static string AddTwoStrings(string one, string two)
         {
+            const int ZEROChar = 48;
 
             // trim out any extra spaces
-            one.Trim(); 
+            one.Trim();
             two.Trim();
 
             bool good = true;
             string sResult = String.Empty;
 
-
             // make sure all characters are between 0 - 9
             foreach (char c in one)
             {
-                if (c < '0' ||  c > '9')
+                if (c < '0' || c > '9')
                 {
                     good = false;
                     break;
@@ -34,7 +83,6 @@ namespace Training.Client.General
                         break;
                     }
                 }
-
             }
             if (good)
             {
@@ -55,8 +103,8 @@ namespace Training.Client.General
                 int carry = 0;
                 for (int i = one.Length - 1; i >= 0; i--)
                 {
-                    int first = ConvertCharToInt(one[i]);   
-                    int second = ConvertCharToInt(two[i]);
+                    int first = one[i] - '0';
+                    int second = two[i] - '0';
                     int iResult = carry + first + second;
                     if (iResult >= 10)
                     {
@@ -67,7 +115,7 @@ namespace Training.Client.General
                     {
                         carry = 0;
                     }
-                    char wth = ConvertIntToChar(iResult);
+                    char wth = (char)(iResult + ZEROChar);
                     sResult = wth + sResult;
                 }
                 if (carry != 0)
@@ -76,91 +124,6 @@ namespace Training.Client.General
                 }
             }
             return sResult;
-        }
-        private static char ConvertIntToChar(int i)
-        {
-            char ret;
-            switch (i)
-            {
-                case 0:
-                    ret = '0';
-                    break;
-                case 1:
-                    ret = '1';
-                    break;
-                case 2:
-                    ret = '2';
-                    break;
-                case 3:
-                    ret = '3';
-                    break;
-                case 4:
-                    ret = '4';
-                    break;
-                case 5:
-                    ret = '5';
-                    break;
-                case 6:
-                    ret = '6';
-                    break;
-                case 7:
-                    ret = '7';
-                    break;
-                case 8:
-                    ret = '8';
-                    break;
-                case 9:
-                    ret = '9';
-                    break;
-                default:
-                    ret = '0';
-                    break;
-
-            }
-
-            return ret;
-        }
-        private static int ConvertCharToInt(char c)
-        {
-            int ret = 0;
-
-            switch (c)
-            {
-                case '0':
-                    ret = 0;
-                    break;
-                case '1':
-                    ret = 1;
-                    break;
-                case '2':
-                    ret = 2;
-                    break;
-                case '3':
-                    ret = 3;
-                    break;
-                case '4':
-                    ret = 4;
-                    break;
-                case '5':
-                    ret = 5;
-                    break;
-                case '6':
-                    ret = 6;
-                    break;
-                case '7':
-                    ret = 7;
-                    break;
-                case '8':
-                    ret = 8;
-                    break;
-                case '9':
-                    ret = 9;
-                    break;
-                default:
-                    ret = 0;
-                    break;
-            }
-            return ret;
         }
         public static bool[] SieveOfEratosthenes(int MaxValue)
         {
