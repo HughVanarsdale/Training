@@ -1,6 +1,6 @@
 ﻿@page "/Euler/EulerMenu00"
 @using System.Diagnostics;
-@using Training.Client.General;
+@using hjva;
 
 <EulerHeader Title="Euler Page One"></EulerHeader>
 
@@ -247,6 +247,7 @@
 
         long finish = 0;
 
+        //bool[] primes = zzhjvaMath.SieveOfEratosthenes(2000000);
         bool[] primes = hjvaMath.SieveOfEratosthenes(2000000);
 
         for (int j = 0; j < primes.Length; j++)
@@ -350,8 +351,9 @@
         int cnt = 1;
         do
         {
+            //if (zzhjvaMath.isPrime(cnt++))
             if (hjvaMath.isPrime(cnt++))
-            {
+                {
                 cntPrimes++;
             }
         } while (cntPrimes <= 10001);
@@ -400,6 +402,7 @@
         for (int i = 20; i > 1; i--)
         {
             singleGreatestTerm = 0;
+            //curPrimes = zzhjvaMath.primeFactors((long)i);
             curPrimes = hjvaMath.primeFactors((long)i);
             foreach (long p in curPrimes)
             {
@@ -461,8 +464,9 @@
         {
             for (int j = 999; j > 0; j--)
             {
-                if (hjvaMath.isPalindrome((i * j).ToString()))
-                {
+                //if (zzhjvaMath.isPalindrome((i * j).ToString()))
+                 if (hjvaMath.isPalindrome((i * j).ToString()))
+                    {
                     if (i * j > topVal)
                     {
                         topVal = i * j;
@@ -483,7 +487,8 @@
         Stopwatch sw = new Stopwatch();
         sw.Start();
 
-        long[] vals = General.hjvaMath.primeFactors(600851475143);
+        //long[] vals = General.zzhjvaMath.primeFactors(600851475143);
+        long[] vals = hjvaMath.primeFactors(600851475143);
         long largest = 0;
         foreach (long l in vals)
         {

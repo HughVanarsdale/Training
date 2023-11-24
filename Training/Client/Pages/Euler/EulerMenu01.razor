@@ -1,8 +1,9 @@
 ﻿@page "/Euler/EulerMenu01"
 @using System;
 @using System.Diagnostics;
-@using General;
 @using System.Numerics;
+@using EulerLib;
+@using hjva;
 
 @inject HttpClient Http
 
@@ -52,7 +53,7 @@
                     </span>
                 </button>
                 <div class="answer">
-                    @Euler[0] @elapsedTime[0]
+                    @iEuler[0] @elapsedTime[0]
                 </div>
             </div>
         </div>
@@ -150,7 +151,7 @@
                     </span>
                 </button>
                 <br />
-                <div class="answer">@Euler[3] @elapsedTime[3]</div>
+                <div class="answer">@iEuler[3] @elapsedTime[3]</div>
             </div>
         </div>
     </div>
@@ -218,7 +219,114 @@
                     </span>
                 </button>
                 <br />
-                <div class="answer">@Euler[6] @elapsedTime[6]</div>
+                <div class="answer">@iEuler[6] @elapsedTime[6]</div>
+            </div>
+        </div>
+    </div>
+    <!-- Question 18 -------------------------------------------------------------------------->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading18">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="false" aria-controls="collapse18">
+                <strong>18) Maximum Path Sum 1</strong>
+            </button>
+        </h2>
+        <div id="collapse18" class="accordion-collapse collapse" aria-labelledby="heading18" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                By starting at the top of the triangle below and moving to adjacent numbers on the row below, 
+                the maximum total from top to bottom is 23
+                <center><pre>
+                     3
+                    7 4
+                   2 4 6
+                  8 5 9 3
+                </pre></center>
+                That is 3 + 7 + 4 + 9 = 23.
+                <center><pre>
+                    75
+                    95 64
+                    17 47 82
+                    18 35 87 10
+                    20 04 82 47 65
+                    19 01 23 75 03 34
+                    88 02 77 73 07 63 67
+                    99 65 04 28 06 16 70 92
+                    41 41 26 56 83 40 80 70 33
+                    41 48 72 33 47 32 37 16 94 29
+                    53 71 44 65 25 43 91 52 97 51 14
+                    70 11 33 28 77 73 17 78 39 68 17 57
+                    91 71 52 38 17 14 91 43 58 50 27 29 48
+                    63 66 04 68 89 53 67 30 73 16 69 87 40 31
+                    04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
+                </pre></center>
+                <br /><br />
+                <button class="pushable" onclick="@Euler18">
+                    <span class="front">
+                        Find the maximum total from the triangle above. 
+                    </span>
+                </button>
+                <br />
+                <div class="answer">@iEuler[7] @elapsedTime[7]</div>
+            </div>
+        </div>
+    </div>
+    <!-- Question 19 -------------------------------------------------------------------------->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading19">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="false" aria-controls="collapse19">
+                <strong>19) Counting Sundays</strong>
+            </button>
+        </h2>
+        <div id="collapse19" class="accordion-collapse collapse" aria-labelledby="heading19" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                You are given the following information, but you may prefer to do some research for yourself.
+                <ul>
+                    <li>
+                        1 Jan 1900 was a Monday.
+                    </li>
+                    <li>
+                        Thirty days has September,<br/>
+                        April, June and November.<br />
+                        All the rest have thirty-one,<br />
+                        Saving February alone,<br />
+                        Which has twenty-eight, rain or shine.<br />
+                        And on leap years, twenty-nine.<br />
+                    </li>
+                    <li>
+                        A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
+                    </li>
+                </ul>
+                <br /><br />
+                <button class="pushable" onclick="@Euler19">
+                    <span class="front">
+                        How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+                    </span>
+                </button>
+                <br />
+                <div class="answer">@iEuler[8] @elapsedTime[8]</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question 20 -------------------------------------------------------------------------->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading20">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="false" aria-controls="collapse20">
+                <strong>20) Factorial Digit Sum</strong>
+            </button>
+        </h2>
+        <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading20" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                n! means x (n - 1)x...x 3 x 2 x 1.<br/>
+                For example 10! = 10 x 9 x ... 3 x 2 x 1 = 3628800<br/>
+                and the sum of the digits in the number 10! = 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.
+                <br /><br />
+                <button class="pushable" onclick="@Euler20">
+                    <span class="front">
+                        Find the sum of the digits in the number 100!
+                    </span>
+                </button>
+                <br />
+                <div class="answer">@iEuler[9] @elapsedTime[9]</div>
             </div>
         </div>
     </div>
@@ -233,12 +341,104 @@
 </style>
 
 @code {
-    private int[] Euler = new int[10];
+    private int[] iEuler = new int[10];
     private long[] EulerLong = new long[10];
     private string[] elapsedTime = new string[10];
     private string[] EulerString = new string[10];
     private BigInteger bi=0; 
-    
+
+    private void Euler20()
+    {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        string addemup = "1";
+        for (int i = 100; i >= 1; i--)
+        {
+            addemup = hjvaMath.MultiplyTwoStrings(addemup, i.ToString());
+        }
+        int cntVals = 0;
+        foreach (char c in addemup)
+        {
+            int val = c - '0';
+            cntVals += val;
+        }
+        iEuler[9] = cntVals;
+
+        sw.Stop();
+        TimeSpan ts = sw.Elapsed;
+        elapsedTime[9] = String.Format($"{ts.Seconds:00}:{ts.Milliseconds:0000} sec");
+    }
+
+    private void Euler19()
+    {
+         /*
+         * 1 Jan 1900 was a Monday.
+         * How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+        */
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        DateTime begDate = DateTime.Parse("Jan 1, 1900");
+        DateTime endDate;
+        int cntSundays = 0;
+        string[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
+        // for each year
+        for (int x = 1901; x <= 2000; x++)
+        {
+            // for each month
+            for (int y = 0; y <= 11; y++)
+            {
+                // format string date
+                string sDate = ($"{months[y]} 1, {x}");
+                // convert string date to DateTime format
+                endDate = DateTime.Parse(sDate);
+                // find the number of days betweend stand and end dates
+                int days = (endDate - begDate).Days;
+                // if Monday is 0 offset (from begin date), then Sunday is 6 offset
+                if (days % 7 == 6)
+                {
+                    cntSundays++;
+                }
+            }
+        }
+
+        iEuler[8] = cntSundays;
+
+        sw.Stop();
+        TimeSpan ts = sw.Elapsed;
+        elapsedTime[8] = String.Format($"{ts.Seconds:00}:{ts.Milliseconds:0000} sec");
+    }
+
+    private async Task Euler18()
+    {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        string param = "Euler18.txt";
+        string[]? data = await Http.GetFromJsonAsync<string[]>($"api/ReadText/{param}");
+
+        int[,] matrix = new int[data.Length, data.Length];
+        string[] lineSplit = new string[data.Length];
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            lineSplit = data[i].Split(' ');
+            for (int j =0; j < lineSplit.Length; j++)
+            {
+                matrix[i, j] = int.Parse(lineSplit[j].Trim());
+            }
+        }
+        
+        iEuler[7] = EulerLib.Problems.MaximumPathSum(matrix);
+        
+
+        sw.Stop();
+        TimeSpan ts = sw.Elapsed;
+        elapsedTime[7] = String.Format($"{ts.Seconds:00}:{ts.Milliseconds:0000} sec");
+    }
+
     private void Euler17()
     {
         Stopwatch sw = new Stopwatch();
@@ -314,7 +514,7 @@
             }
             totChars += line.Length;
         }
-        Euler[6] = totChars;
+        iEuler[6] = totChars;
 
         sw.Stop();
         TimeSpan ts = sw.Elapsed;
@@ -329,12 +529,14 @@
         string sVal = "1";
         for (int i = 0; i < 1000; i++)
         {
+            //sVal = zzhjvaMath.MultiplyTwoStrings(sVal, "2");
             sVal = hjvaMath.MultiplyTwoStrings(sVal, "2");
         }
 
         string sRet = "0";
         foreach (char c in sVal)
         {
+            //sRet = zzhjvaMath.AddTwoStrings(sRet, c.ToString());
             sRet = hjvaMath.AddTwoStrings(sRet, c.ToString());
         }
 
@@ -355,6 +557,8 @@
         // (2 X n) ! / n! n!
         int matrixSide = 20;
 
+        //BigInteger size = zzhjvaMath.Factorial(matrixSide);
+        //BigInteger numer = zzhjvaMath.Factorial(2 * matrixSide);
         BigInteger size = hjvaMath.Factorial(matrixSide);
         BigInteger numer = hjvaMath.Factorial(2 * matrixSide);
         BigInteger ret = numer / (size * size);
@@ -416,7 +620,7 @@
                 maxStartingNum = i;
             }
         }
-        Euler[3] = maxStartingNum;
+        iEuler[3] = maxStartingNum;
         sw.Stop();
         TimeSpan ts = sw.Elapsed;
         elapsedTime[3] = String.Format($"{ts.Seconds:00}:{ts.Milliseconds:0000} sec");
@@ -435,6 +639,7 @@
 
         foreach (string d in data)
         {
+            //sTotal = zzhjvaMath.AddTwoStrings(sTotal, d);
             sTotal = hjvaMath.AddTwoStrings(sTotal, d);
         }
 
@@ -461,6 +666,7 @@
             cnt++;
             triangle += cnt;
 
+            //factors = zzhjvaMath.AllFactors(triangle);
             factors = hjvaMath.AllFactors(triangle);
 
 
@@ -595,7 +801,7 @@
         }
 
 
-        Euler[0] = maxTot;
+        iEuler[0] = maxTot;
 
         sw.Stop();
         TimeSpan ts = sw.Elapsed;
