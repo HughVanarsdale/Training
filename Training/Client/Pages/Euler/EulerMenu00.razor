@@ -123,7 +123,7 @@
                 <div class="accordion-body">
                     The sum of the squares of the first 10 natural numbers is 1<sup>2</sup> + 2<sup>2</sup> ...  + 10<sup>2</sup> = 385
                     <br /><br />
-                    The square of the sum of the first 10 natural numbers is (1 + 2 + ... + 10)<sup>2</sup> = 55<sup>2</sup> = 23025
+                    The square of the sum of the first 10 natural numbers is (1 + 2 + ... + 10)<sup>2</sup> = 55<sup>2</sup> = 3025
                     <br /><br />
                     Hence the difference between the sum of the squares of the first ten natural numbers and
                     the square of that sum is: 3025 - 385 = 2640.
@@ -236,9 +236,9 @@
 </style>
 
 @code {
-    private int[] Euler = new int[10];
-    private long[] EulerLong = new long[10];
-    private string[] elapsedTime = new string[10];
+    private int[] Euler = new int[10];              // hold integer answers
+    private long[] EulerLong = new long[10];        // hold long answers
+    private string[] elapsedTime = new string[10];  // elapsed times 
 
     private void EulerTen()
     {
@@ -247,16 +247,16 @@
 
         long finish = 0;
 
-        //bool[] primes = zzhjvaMath.SieveOfEratosthenes(2000000);
+        // for all numbers below 2,000,000 set true/false if prime
         bool[] primes = hjvaMath.SieveOfEratosthenes(2000000);
 
         for (int j = 0; j < primes.Length; j++)
         {
+            // if value is a pime
             if (primes[j])
             {
+                // running count of primes
                 finish += j;
-
-                //Console.Write(j + ", ");
             }
         }
         EulerLong[9] = finish;
@@ -271,14 +271,20 @@
         Stopwatch sw = new Stopwatch();
         sw.Start();
 
-        EulerLong[8] = 0;
+        EulerLong[8] = 0;       // initialize return value
+
+        // test c from 1 to 1000
         for (int c = 1; c < 1000; c++)
         {
+            // test b from 1 to 1000
             for (int b = 1; b + c < 1000; b++)
             {
+                // deduce a from givens
                 int a = 1000 - c - b;
+                // see if a, b, c all fit conditions
                 if (Math.Pow(a, 2) + Math.Pow(b, 2) == Math.Pow(c, 2))
                 {
+                    // set up return value and break out of both loops.
                     EulerLong[8] = a * b * c;
                     c = 1000;
                     break;
@@ -297,8 +303,9 @@
         Stopwatch sw = new Stopwatch();
         sw.Start();
 
-        const int OFFSET = 13;
+        const int OFFSET = 13; // set by instructions
 
+        // huge number to test
         string hugeNum = "73167176531330624919225119674426574742355349194934" +
                             "96983520312774506326239578318016984801869478851843" +
                             "85861560789112949495459501737958331952853208805511" +
@@ -319,45 +326,52 @@
                             "84580156166097919133875499200524063689912560717606" +
                             "05886116467109405077541002256983155200055935729725" +
                             "71636269561882670428252483600823257530420752963450";
+        // return value
         long maxVal = 0;
+
+        // walk through huge numbber from first to last-OFFSET
         for (int i = 0; i < hugeNum.Length - OFFSET; i++)
         {
+            // initialize current value
+            // and take OFFSET number of character at a time to find total
             long curTotal = 1;
             for (int j = i; j < i + OFFSET; j++)
             {
                 curTotal *= hugeNum[j] - '0';
             }
+
+            // if curent value set maxValue to current value
             if (curTotal > maxVal)
             {
                 maxVal = curTotal;
             }
         }
-        //"73167176531330624919225119674426574742355349194934" +
+
         EulerLong[7] = maxVal;
 
         sw.Stop();
         TimeSpan ts = sw.Elapsed;
         elapsedTime[7] = String.Format($"{ts.Seconds:00}:{ts.Milliseconds:0000} sec");
 
-        // Want 5832 for 4 digits.
     }
 
     private void EulerSeven()
     {
-
         Stopwatch sw = new Stopwatch();
         sw.Start();
-        int cntPrimes = 0;
-        int cnt = 1;
+        int cntPrimes = 0;      // count up to 10,001 primes
+        int cnt = 1;            // return value
         do
         {
-            //if (zzhjvaMath.isPrime(cnt++))
+            // test is iteration value is prime
             if (hjvaMath.isPrime(cnt++))
-                {
+            {
                 cntPrimes++;
             }
+        // keep looping until find 10,001 primes
         } while (cntPrimes <= 10001);
 
+        // return which value is the 10,001th prime
         EulerLong[6] = cnt - 1;
 
         sw.Stop();
@@ -373,6 +387,7 @@
         long SumOfSquares = 0;
         long SquareOfSums = 0;
 
+        // for 1 to 100 do maths
         for (int i = 1; i <= 100; i++)
         {
             SumOfSquares += (long)Math.Pow(i, 2);
@@ -392,20 +407,23 @@
         Stopwatch sw = new Stopwatch();
         sw.Start();
 
-        EulerLong[4] = 1;
+        EulerLong[4] = 1;       // initialize return value
 
-        List<long> allPrimes = new();
-        long[] curPrimes;
-        long singleGreatestTerm;
+        List<long> allPrimes = new();   // list of primes for all factors 
+        long[] curPrimes;               // list of primes for a number
+        long singleGreatestTerm;        // find this for each list of factors.
 
-        // 2520 is the value for 1 to 10
+        // 20 set by instructions
         for (int i = 20; i > 1; i--)
         {
             singleGreatestTerm = 0;
-            //curPrimes = zzhjvaMath.primeFactors((long)i);
+            
+            // get prime factors for number
             curPrimes = hjvaMath.primeFactors((long)i);
+            // for each prime, find largest one
             foreach (long p in curPrimes)
             {
+                // if a prime is listed more than one (8 = 2x2x2) use that as largest prime
                 int cnt = curPrimes.Count(x => x == p);
                 if (cnt == 1)
                 {
@@ -424,6 +442,7 @@
                 }
             }
             bool found = false;
+            // want distinct list of max primes in all primes list
             foreach (long aP in allPrimes)
             {
                 if (aP == singleGreatestTerm)
@@ -443,7 +462,7 @@
             }
 
         }
-
+        // multiply list of single greatest primes to find answer
         foreach (long lng in allPrimes)
         {
             EulerLong[4] *= lng;
@@ -459,12 +478,13 @@
         Stopwatch sw = new Stopwatch();
         sw.Start();
 
+        // find largest palindrome that is product of two 3-digit numbers
+        // brute force walk through list and test value.
         int topVal = 0;
         for (int i = 999; i > 0; i--)
         {
             for (int j = 999; j > 0; j--)
             {
-                //if (zzhjvaMath.isPalindrome((i * j).ToString()))
                  if (hjvaMath.isPalindrome((i * j).ToString()))
                     {
                     if (i * j > topVal)
@@ -486,10 +506,11 @@
     {
         Stopwatch sw = new Stopwatch();
         sw.Start();
-
-        //long[] vals = General.zzhjvaMath.primeFactors(600851475143);
+        // get prime factors for number
         long[] vals = hjvaMath.primeFactors(600851475143);
         long largest = 0;
+
+        // find largest in list
         foreach (long l in vals)
         {
             if (l > largest)
@@ -498,7 +519,6 @@
             }
         }
         EulerLong[2] = largest;
-        //Thread.Sleep(5000);
 
         sw.Stop();
         TimeSpan ts = sw.Elapsed;
@@ -511,12 +531,14 @@
         stopWatch.Start();
         Euler[1] = 2;
 
-        int first = 1;
-        int second = 2;
+        int first = 1;      // first fib term initialized
+        int second = 2;     // second fib term initialized
         int cur = 0;
         do
         {
+            // create fib number
             cur = first + second;
+            // test if fib number is positive
             if (cur % 2 == 0)
             {
                 Euler[1] += cur;
@@ -534,12 +556,15 @@
     {
         Stopwatch stopWatch = new Stopwatch();
         stopWatch.Start();
-
+        // find multiples of 3 & 5 below 1000, and add them up
         Euler[0] = 0;
+        // main loop
         for (int i = 1; i < 1000; i++)
         {
+            // if number i is divisable by 3 or 5
             if (i % 3 == 0 || i % 5 == 0)
             {
+                // add number to running total
                 Euler[0] += i;
             }
         }

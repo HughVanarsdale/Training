@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training.Shared", "Training
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EulerLib", "..\Library\Euler\EulerLib.csproj", "{FFFA27C7-6757-4443-8B22-F9E58BE264E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hjvaMath", "..\Library\hjvaMath\hjvaMath.csproj", "{8141067B-EB10-4AEA-A19B-44566304A2B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hjvaLib", "..\Library\hjvaLib\hjvaLib.csproj", "{8141067B-EB10-4AEA-A19B-44566304A2B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

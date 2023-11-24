@@ -352,11 +352,14 @@
         Stopwatch sw = new Stopwatch();
         sw.Start();
 
+        // run 100! , then add up digits 
         string addemup = "1";
         for (int i = 100; i >= 1; i--)
         {
             addemup = hjvaMath.MultiplyTwoStrings(addemup, i.ToString());
         }
+
+        // convert string result to integer
         int cntVals = 0;
         foreach (char c in addemup)
         {
@@ -372,9 +375,9 @@
 
     private void Euler19()
     {
-         /*
-         * 1 Jan 1900 was a Monday.
-         * How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+        /*
+        * 1 Jan 1900 was a Monday.
+        * How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
         */
         Stopwatch sw = new Stopwatch();
         sw.Start();
@@ -416,21 +419,31 @@
         Stopwatch sw = new Stopwatch();
         sw.Start();
 
-        string param = "Euler18.txt";
-        string[]? data = await Http.GetFromJsonAsync<string[]>($"api/ReadText/{param}");
+        string[]? data;
 
+        // get data from server
+        string param = "Euler18.txt";
+        data = await Http.GetFromJsonAsync<string[]>($"api/ReadText/{param}");
+
+        // set up matrix size
         int[,] matrix = new int[data.Length, data.Length];
+
+        // set up string array to hold each data cell
         string[] lineSplit = new string[data.Length];
 
+        // for each row of input data
         for (int i = 0; i < data.Length; i++)
         {
+            // split input line into array
             lineSplit = data[i].Split(' ');
+            // put string cell into int cell in matrix
             for (int j =0; j < lineSplit.Length; j++)
             {
                 matrix[i, j] = int.Parse(lineSplit[j].Trim());
             }
         }
         
+        // find max path sum
         iEuler[7] = EulerLib.Problems.MaximumPathSum(matrix);
         
 
@@ -478,23 +491,30 @@
         int totChars = 0;
         int divisor;
         string line;
+
+        // for all numbers between 1 & 1000
         for (int i = 1; i <= 1000; i++)
         {
-            line = "";
-            int working = i;
+            line = "";              // hold english spelling of number
+            int working = i;        // working value of i
             while (working > 0)
             {
+                // check if number is 1000
                 if (working >= 1000)
                 {
-                    divisor = working / 1000;
+                    divisor = working / 1000;       // find how many thousands
                     line += numWords.First(x => x.Key == divisor).Value + "thousand";
-                    working -= 1000 * divisor;
+                    working -= 1000 * divisor;      // subtract 1000's from working int
                 }
                 if (working >= 100)
                 {
+                    // find how many hundreds
                     divisor = working / 100;
+                    // add spelling for how many hundreds and the hundred
                     line += numWords.First(x => x.Key == divisor).Value + "hundred";
+                    // subtract value just spelled out
                     working -= 100 * divisor;
+                    // in requirements
                     if (working > 0)
                     {
                         line += "and";
@@ -526,17 +546,20 @@
         Stopwatch sw = new Stopwatch();
         sw.Start();
 
+        // pretty staight forward
+        // find sum of digits for 2^1000
+
+        // do math to find value put in sVal
         string sVal = "1";
         for (int i = 0; i < 1000; i++)
         {
-            //sVal = zzhjvaMath.MultiplyTwoStrings(sVal, "2");
-            sVal = hjvaMath.MultiplyTwoStrings(sVal, "2");
+            sVal = hjva.hjvaMath.MultiplyTwoStrings(sVal, "2");
         }
 
+        // foreach char in sVal, add together to get grand total
         string sRet = "0";
         foreach (char c in sVal)
         {
-            //sRet = zzhjvaMath.AddTwoStrings(sRet, c.ToString());
             sRet = hjvaMath.AddTwoStrings(sRet, c.ToString());
         }
 
@@ -557,8 +580,6 @@
         // (2 X n) ! / n! n!
         int matrixSide = 20;
 
-        //BigInteger size = zzhjvaMath.Factorial(matrixSide);
-        //BigInteger numer = zzhjvaMath.Factorial(2 * matrixSide);
         BigInteger size = hjvaMath.Factorial(matrixSide);
         BigInteger numer = hjvaMath.Factorial(2 * matrixSide);
         BigInteger ret = numer / (size * size);
@@ -568,6 +589,7 @@
         TimeSpan ts = sw.Elapsed;
         elapsedTime[4] = String.Format($"{ts.Seconds:00}:{ts.Milliseconds:0000} sec");
     }
+
     private void Euler14()
     {
         Stopwatch sw = new Stopwatch();
@@ -593,12 +615,14 @@
             done = false;
             do
             {
+                // use array so don't have to recalculte. Didn't make a big time difference.
                 if (savedTerms[i] != 0)
                 {
                     termsCnt += savedTerms[i];
                     done = true;
                 }
                 else
+                // do math
                 {
                     if (workingVal % 2 == 0)
                     {
@@ -639,7 +663,6 @@
 
         foreach (string d in data)
         {
-            //sTotal = zzhjvaMath.AddTwoStrings(sTotal, d);
             sTotal = hjvaMath.AddTwoStrings(sTotal, d);
         }
 
@@ -666,7 +689,6 @@
             cnt++;
             triangle += cnt;
 
-            //factors = zzhjvaMath.AllFactors(triangle);
             factors = hjvaMath.AllFactors(triangle);
 
 
