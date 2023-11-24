@@ -65,10 +65,10 @@ a, .btn-link {
 
 /*-------------------------------------------------------------------------------------*/
 .answer {
-    color: blue;
+    color: black;
     padding: 5px;
     font-size: larger;
-    border: double;
+    border: solid;
     border-color: grey;
 }
 
@@ -85,6 +85,12 @@ a, .btn-link {
 .accordion-body {
     background-color: hsl(216deg 100% 91%);
     border-color: #A9C5EB;
+}
+
+.accordion-item {
+    color: black;
+    border-color: black;
+    
 }
 
 .pushable {
