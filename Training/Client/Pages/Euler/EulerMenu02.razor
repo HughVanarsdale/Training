@@ -1,8 +1,76 @@
 ﻿@page "/Euler/EulerMenu02"
+@using System.Diagnostics;
+@using hjvaLib;
+
 <EulerHeader Title="Euler Page Three"></EulerHeader>
 
+<div class="accordion" id="accordionExample">
+
+    <!-- Question 21 -------------------------------------------------------------------------->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading21">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="false" aria-controls="collapse21">
+                <strong>21) Amicable Numbers </strong>
+            </button>
+        </h2>
+        <div id="collapse21" class="accordion-collapse collapse" aria-labelledby="heading21" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                Let d(n) be defined as the sum of proper divisors of n. <br/>
+                if d(a) = b and d(b) = a where a != b are an amicable pair and each of a and b are called amicable numbers.<br /><br/>
+                For example, the proper divisors of 220 are 1,2,4,5,10,11,20,22,44,55 and 110; therefore d(220) = 284. <br />
+                The proper divisors of 284 are 1,2,4,71,142; so d(284) = 220.
+                <br/><br/>
+                <button class="pushable" onclick="@Euler21">
+                    <span class="front">
+                        Evaluate the sum of all the amicable numbers under 10,000.
+                    </span>
+                </button>
+                <div class="answer">
+                    @iEuler[0] @elapsedTime[0]
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <EulerNav />
 @code {
+    int[] iEuler = new int[10];
+    string[] elapsedTime = new string[10];
 
+    public void Euler21()
+    {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        int add1 = 0;
+        int add2 = 0;
+        int masterSum = 0;
+
+        for (int i = 1; i < 10000; i++)
+        {
+            add1 = 0;
+            add2 = 0;
+            int[] proper1 = hjvaMath.ProperDivisors(i);
+            foreach (int j in proper1)
+            {
+                add1 += j;
+            }
+            int[] proper2 = hjvaMath.ProperDivisors(add1);
+            foreach (int u in proper2)
+            {
+                add2 += u;
+            }
+            if (add2 == i && i != add1)
+            {
+                masterSum += add2;
+            }
+        }
+        iEuler[0] = masterSum;
+
+        sw.Stop();
+        TimeSpan ts = sw.Elapsed;
+        elapsedTime[0] = String.Format($"{ts.Seconds:00}:{ts.Milliseconds:0000} sec");
+
+    }
 }

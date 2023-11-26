@@ -16,7 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Library\Euler\EulerLib.csproj" />
     <ProjectReference Include="..\..\..\Library\hjvaLib\hjvaLib.csproj" />
-    <ProjectReference Include="..\..\..\Library\hjvaMath\hjvaLib.csproj" />
     <ProjectReference Include="..\Shared\Training.Shared.csproj" />
   </ItemGroup>
 
