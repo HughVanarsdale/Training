@@ -2,6 +2,8 @@
 @using System.Diagnostics;
 @using hjvaLib;
 
+@inject HttpClient Http
+
 <EulerHeader Title="Euler Page Three"></EulerHeader>
 
 <div class="accordion" id="accordionExample">
@@ -31,36 +33,117 @@
             </div>
         </div>
     </div>
+    <!-- Question 22
+
+    -------------------------------------------------------------------------->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading22">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="false" aria-controls="collapse22">
+                <strong>22) Names Scores</strong>
+            </button>
+        </h2>
+        <div id="collapse22" class="accordion-collapse collapse" aria-labelledby="heading22" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                Using names.txt (right click and 'Save Link/Target As...'), a 46K text file containing over five-thousand first names, 
+                begin by sorting it into alphabetical order. Then working out the alphabetical value for each name, 
+                multiply this value by its alphabetical position in the list to obtain a name score.
+                <br/><br/>
+                For example, when the list is sorted into alphabetical order, COLIN, which is worth 3+15+12+9+14 = 53, 
+                is the 938th name in the list. So, COLIN would obtain a score of 938 x 53 = 49714.
+                <br /><br />
+                <button class="pushable" onclick="@Euler22">
+                    <span class="front">
+                        What is the total of all the name scores in the file?
+                    </span>
+                </button>
+                <div class="answer">
+                    @iEulerLong[1] @elapsedTime[1]
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <EulerNav />
 @code {
     int[] iEuler = new int[10];
+    long[] iEulerLong = new long[10];
     string[] elapsedTime = new string[10];
+
+    public async Task Euler22()
+    {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        const int LETTER = 64;      // one less than 'A'
+
+        string[]? data;
+
+        // get data from server
+        string param = "Euler22.txt";
+        data = await Http.GetFromJsonAsync<string[]>($"api/ReadText/{param}");
+
+        //split data into string array by commas
+        string[] names = data[0].Split(',');
+
+        // sort names into namesSorted
+        IOrderedEnumerable<string> namesSorted = names.OrderBy(x => x);
+
+        long grandTotal = 0;        // total word score of all words
+        int counter = 0;            // incrementing number of words
+        foreach (string s in namesSorted)
+        {
+            // trim " mark
+            string work = s.Trim('"');
+            counter++;
+            int wordScore = 0;      // individul word's score
+            foreach (char c in work)
+            {
+                wordScore += c - LETTER;
+            }
+            grandTotal += (counter * wordScore);
+        }
+
+        iEulerLong[1] = grandTotal;
+
+        sw.Stop();
+        TimeSpan ts = sw.Elapsed;
+        elapsedTime[1] = String.Format($"{ts.Seconds:00}:{ts.Milliseconds:0000} sec");
+    }
 
     public void Euler21()
     {
         Stopwatch sw = new Stopwatch();
         sw.Start();
 
-        int add1 = 0;
-        int add2 = 0;
-        int masterSum = 0;
+        int add1 = 0;       // added proper divisors for first number
+        int add2 = 0;       // added proper divisors for second number
+        int masterSum = 0;  // return value
 
+        // master loop
         for (int i = 1; i < 10000; i++)
         {
             add1 = 0;
             add2 = 0;
+            // get proper divisiors
             int[] proper1 = hjvaMath.ProperDivisors(i);
+
+            // add up score of proper divisors
             foreach (int j in proper1)
             {
                 add1 += j;
             }
+
+            // set second list proper divisors
             int[] proper2 = hjvaMath.ProperDivisors(add1);
+
+            // add up 2nd list of divisors
             foreach (int u in proper2)
             {
                 add2 += u;
             }
+
+            // if second list of add divisors = starting number and starting number is not = proper list one
             if (add2 == i && i != add1)
             {
                 masterSum += add2;
